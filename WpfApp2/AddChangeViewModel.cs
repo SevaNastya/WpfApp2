@@ -71,7 +71,10 @@ namespace WpfApp2
 
         private void EditF(object obj)
         {
+            Regex r = new Regex("^[0-9]*$");
             if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Date) || a == null) return;
+            if (Date.Split('.').Length != 2 || !r.IsMatch(Date.Split('.')[0]) || !r.IsMatch(Date.Split('.')[1]) || int.Parse(Date.Split('.')[0]) > 31 || int.Parse(Date.Split('.')[1]) > 12)
+            { MessageBox.Show("Неправильный ввод"); return; }
             SQLQueries.MakeRequestWrite($"update Calendar set Event = \'{Name}\', [Date] = \'{Date}\' where [key]={a.key}");
             a = null;
             CanEdit = false;

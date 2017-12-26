@@ -20,27 +20,42 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <Button Grid.Column="1" Grid.Row="0" Content="Добавить событие" Command="{Binding Insert}"/>
             <Button Grid.Column="1" Grid.Row="1" Content="Удалить событие" Command="{Binding Delete}"/>
             <Button Grid.Column="1" Grid.Row="2" Content="Изменить событие" Command="{Binding Change}"/>
             <Button Grid.Column="1" Grid.Row="3" Content="События месяца" Command="{Binding Month}"/>
             <Button Grid.Column="1" Grid.Row="4" Content="Все события" Command="{Binding Year}"/>
-
+            <Button Grid.Column="1" Grid.Row="5" Content="Дни рождения ВК" Command="{Binding LoadFriends}" CommandParameter="{Binding ElementName=UserID}"/>
         </Grid>
-        <Calendar Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <ListView Name="EventsList" Grid.Column="0" ItemsSource="{Binding Eventlist}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="150" Header="Событие" DisplayMemberBinding="{Binding EventTitle}"/>
-                    <GridViewColumn Width="70" Header="Дата" DisplayMemberBinding="{Binding Date}"/>
-                </GridView>
-            </ListView.View>
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding ListClick}"  CommandParameter="{Binding ElementName=EventsList, Path=SelectedItem}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </ListView>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="0.2*"/>
+            </Grid.RowDefinitions>
+            
+            <ListView Name="EventsList" Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Eventlist}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="150" Header="Событие" DisplayMemberBinding="{Binding EventTitle}"/>
+                        <GridViewColumn Width="70" Header="Дата" DisplayMemberBinding="{Binding Date}"/>
+                    </GridView>
+                </ListView.View>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding ListClick}"  CommandParameter="{Binding ElementName=EventsList, Path=SelectedItem}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListView>
+            <TextBox Grid.Column="0" Grid.Row="1" Name="UserID" FontSize="20">
+                <TextBox.Text>
+                    <Binding Path="UserID" UpdateSourceTrigger="PropertyChanged">
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+        </Grid>
+                <Calendar Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        
     </Grid>
 </Window>

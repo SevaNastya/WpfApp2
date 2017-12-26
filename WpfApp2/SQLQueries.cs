@@ -14,8 +14,7 @@ namespace WpfApp2
         static public List<Events> MakeRequestRead(string req)
         {
             List<Events> hold = new List<Events>();
-            using (SqlConnection db = new SqlConnection(@"Data Source=(local)\SQLEXPRESS; Initial Catalog=Calendar;
-Integrated Security=True"))
+            using (SqlConnection db = new SqlConnection(Properties.Settings.Default.SQL))
             {
                 SqlCommand query = new SqlCommand(req, db);
                 SqlDataReader reader;
